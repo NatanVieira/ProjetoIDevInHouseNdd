@@ -7,3 +7,9 @@
 .selecao {
     margin: 5px;
 }
+
+.rodape {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+}
