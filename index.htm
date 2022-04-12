@@ -10,11 +10,9 @@
         <title>Minha Lista de Compras =)</title>
     </head>
     <body>
-        <div class="row">
-            <nav class="col col-12 navbar navbar-dark bg-dark">
-                <a href="#" class="navbar-brand">Início</a>
-            </nav>
-        </div>
+        <nav class="col col-12 navbar navbar-dark bg-dark" style="width: 100%;">
+            <a href="#" class="navbar-brand">Início</a>
+        </nav>
         <div class="row">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Digite um novo produto aqui" aria-label="Novo produto">
@@ -22,11 +20,10 @@
             </div>
         </div>
         <div class="row" id="divListaProdutos">
-
         </div>
-        <div class="row rodape" id="divSomaProdutosSelecionados">
-            <span>Total da compra: R$</span><span id="valorTotal"></span>
-        </div>
+        <footer class="footer">
+            <span class="text-muted">Valor Total R$ 999.99</span>
+        </footer>
         <!-- Scritps-->
         <script src="./js/scritp.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
