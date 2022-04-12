@@ -41,3 +41,8 @@ tbody {
     height: 50px;
     width: 100%;
 }
+
+.listaVazia {
+    font-size: 60px;
+    color: #212529;
+}
