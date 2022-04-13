@@ -3,11 +3,30 @@ const ID_DIVRESULTADO = 'divResultado';
 const ID_VALORTOTAL   = 'valorTotal';
 const ID_PRODUTO      = 'produto';
 const ID_PRECO        = 'divPreco';
+const ID_INPUTPRECO   = 'inputValorPreco';
+const ID_BOTAOPRECO   = 'botaoAtualizaValor';
+const ID_TITULOPRECO  = 'tituloModalPreco';
 
 let id_geral = 0;
 let minhaLista = [];
 let valorTotal = 0;
 
+// funcoes gerais
+function incrementaIDGeral (){
+    id_geral++;
+}
+
+//funcoes LocalStorage
+function retornaListaLocalStorage() {
+    if (localStorage.getItem(ID_LOCALSTORAGE) != '')
+        return JSON.parse(localStorage.getItem(ID_LOCALSTORAGE));
+}
+
+function atualizaLocalStorage() {
+    localStorage.setItem(ID_LOCALSTORAGE,JSON.stringify(minhaLista));
+}
+
+// funcoes para elementos html
 function iniciaPagina() {
     minhaLista = retornaListaLocalStorage();
     valorTotal = 0;
@@ -23,23 +42,9 @@ function iniciaPagina() {
     alteraValorTotal(valorTotal);
 }
 
-function retornaListaLocalStorage() {
-    if (localStorage.getItem(ID_LOCALSTORAGE) != '')
-        return JSON.parse(localStorage.getItem(ID_LOCALSTORAGE));
-}
-
-function atualizaLocalStorage() {
-    localStorage.setItem(ID_LOCALSTORAGE,JSON.stringify(minhaLista));
-}
-function constroiTabelaDaLista() {
-    const divResultado    = document.getElementById(ID_DIVRESULTADO);
-    const tabelaLista     = constroiTabela(divResultado);
-    const cabecalhoTabela = constroiCabecalho(tabelaLista, ["","Descrição","Valor (R$)",""]);
-    const corpoTabela     = constroiCorpo(tabelaLista);
-    minhaLista.forEach((item) => {
-        constroiLinhaCorpo(corpoTabela,item);
-        valorTotal += item.valor;
-    })
+function alteraValorTotal(valor) {
+    const spanValorTotal = document.getElementById(ID_VALORTOTAL);
+    spanValorTotal.innerText = String(valor.toFixed(2)).replace('.',',');
 }
 
 function constroiSpanListaVazia() {
@@ -49,6 +54,17 @@ function constroiSpanListaVazia() {
     spanListaVazia.innerText = 'Não existe nenhum item adicionado na lista.';
     spanListaVazia.className = 'listaVazia';
     divResultado.appendChild(spanListaVazia);
+}
+
+function constroiTabelaDaLista() {
+    const divResultado    = document.getElementById(ID_DIVRESULTADO);
+    const tabelaLista     = constroiTabela(divResultado);
+    const cabecalhoTabela = constroiCabecalho(tabelaLista, ["","Descrição","Valor (R$)",""]);
+    const corpoTabela     = constroiCorpo(tabelaLista);
+    minhaLista.forEach((item) => {
+        constroiLinhaCorpo(corpoTabela,item);
+        valorTotal += Number(item.valor);
+    })
 }
 
 function constroiTabela(divTabela){
@@ -99,9 +115,9 @@ function constroiSelecaoItem(id, valor) {
     checkItemSelecao.type = 'checkbox';
     checkItemSelecao.checked = valor > 0 ? true : false ;
     checkItemSelecao.id = 'cb-' + String(id);
-    checkItemSelecao.setAttribute('data-bs-toggle','modal');
-    checkItemSelecao.setAttribute('data-bs-target','#modalPreco');
-    checkItemSelecao.setAttribute("onclick","definePrecoItem(" + String(id) + ", this.checked, this.id)")
+    checkItemSelecao.setAttribute("onclick","abreModalPrecoItem(" + String(id) + ", this.checked, this.id)")
+    checkItemSelecao.setAttribute('data-bs-toggle', valor > 0 ? '' : 'modal');
+    checkItemSelecao.setAttribute('data-bs-target', valor > 0 ? '' : '#modalPreco');
     tdItemSelecao.appendChild(checkItemSelecao);
     tdItemSelecao.id = 'tg-' + String(id);
     return tdItemSelecao;
@@ -117,7 +133,7 @@ function constroiEliminacaoItem(id) {
     const tdEliminacao = document.createElement('td');
     const buttonItemEliminacao = document.createElement('button');
     buttonItemEliminacao.classList.add('btn');
-    buttonItemEliminacao.classList.add('btn-danger');
+    buttonItemEliminacao.classList.add('btn-outline-danger');
     buttonItemEliminacao.setAttribute("onclick","removeItemLista(" + String(id) + ")");
     buttonItemEliminacao.innerText = 'Eliminar';
     tdEliminacao.appendChild(buttonItemEliminacao);
@@ -125,11 +141,13 @@ function constroiEliminacaoItem(id) {
     return tdEliminacao;
 }
 
-function alteraValorTotal(valor) {
-    const spanValorTotal = document.getElementById(ID_VALORTOTAL);
-    spanValorTotal.innerText = String(valor.toFixed(2)).replace('.',',');
+function atualizaAtributosCheckBox(idCheckBox, itemSelecionado) {
+    const checkbox = document.getElementById(idCheckBox);
+    checkbox.setAttribute('data-bs-toggle', itemSelecionado ? '' : 'modal');
+    checkbox.setAttribute('data-bs-target', itemSelecionado ? '' : '#modalPreco');
 }
 
+//funcoes para itens da lista
 function removeItemLista(id) {
     let posicaoObjeto;
     posicaoObjeto = minhaLista.findIndex(x => x.id == id);
@@ -138,7 +156,23 @@ function removeItemLista(id) {
     iniciaPagina();
 }
 
-function adicionarProduto() {
+function abreModalPrecoItem(id, itemSelecionado, idCheckBox){
+    const botaoAtualizaValor = document.getElementById(ID_BOTAOPRECO);
+    const itemLista = minhaLista.find(x => x.id == id);
+    const inputValorPreco = document.getElementById(ID_INPUTPRECO);
+    inputValorPreco.value = '';
+    if(itemLista){
+        const tituloModal = document.getElementById(ID_TITULOPRECO);
+        tituloModal.innerText = itemLista.descricao;
+    }
+    atualizaAtributosCheckBox(idCheckBox,itemSelecionado);
+    if (itemSelecionado)
+        botaoAtualizaValor.setAttribute('onclick','adicionaValorItem(' + String(id) +')');
+    else
+        retiraValorItem(id);
+}
+
+function adicionaItemLista() {
     const produto = document.getElementById(ID_PRODUTO);
     const textoProduto = produto.value;
     if(textoProduto != '' && textoProduto != null){
@@ -162,78 +196,20 @@ function criaNovoItemLista(textoProduto) {
     atualizaLocalStorage();
 }
 
-function incrementaIDGeral (){
-    id_geral++;
+function adicionaValorItem(id){
+    const inputValorPreco = document.getElementById(ID_INPUTPRECO);
+    const valor = Number(inputValorPreco.value);
+    atualizaValorItem(id, valor);
 }
 
-function definePrecoItem(id, itemSelecionado, idCheckBox){
-    const checkbox = document.getElementById(idCheckBox);
-    if (itemSelecionado){
-        // const modalPreco = criaModalPreco(id);
-        // divPrecoProduto.appendChild(modalPreco);
-        const botaoModalPreco = document.getElementById('botaoModalPreco');
-        botaoModalPreco.setAttribute('onclick','chamaAlert()');
-        checkbox.setAttribute('data-bs-toggle','');
-        checkbox.setAttribute('data-bs-target','');
-    }
-    else{
-        checkbox.setAttribute('data-bs-toggle','modal');
-        checkbox.setAttribute('data-bs-target','#modalPreco');
-        // const produto = minhaLista.find(x => x.id == id);
-        // if (produto)
-        //     produto.valor = 0;
-    }
+function retiraValorItem(id) {
+    const valor = 0;
+    atualizaValorItem(id,valor);
 }
 
-function chamaAlert() {
-    alert("TESTE MUDANÇA MODAL");
-}
-function criaModalPreco (id) {
-    const modalPreco = document.createElement('div');
-    modalPreco.classList.add('modal');
-    modalPreco.classList.add('modal-visible');
-    modalPreco.id = 'modalPreco';
-    modalPreco.tabIndex = '-1'
-    modalPreco.role = 'dialog'
-
-    const modalContent = document.createElement('div');
-    modalContent.classList.add('modal-content');
-    const modalHeader = document.createElement('div');
-    modalHeader.classList.add('modal-header');
-    const tituloModal = document.createElement('h5');
-    tituloModal.classList.add('modal-title');
-    tituloModal.innerText = 'Preço para o item:';
-    const modalBody = document.createElement('div');
-    modalBody.classList.add('modal-body');
-    const formModal = document.createElement('form');
-    const formGroup = document.createElement('form-group');
-    const inputPreco = document.createElement('input');
-    inputPreco.classList.add('form-control');
-    inputPreco.type = 'text';
-    inputPreco.id = 'valorPreco';
-    const modalFooter = document.createElement('div');
-    modalFooter.classList.add('modal-footer');
-    const botaoFechar =  document.createElement('button');
-    botaoFechar.classList.add('btn')
-    botaoFechar.classList.add('btn-primary');
-    const botaoAdicionarPreco = document.createElement('button');
-    botaoAdicionarPreco.classList.add('btn')
-    botaoAdicionarPreco.classList.add('btn-dark');
-    botaoFechar.setAttribute('data-bs-dismiss','#modalPreco');
-    botaoAdicionarPreco.setAttribute('onclick','adicionaPreco(' + inputPreco.value + ',' + id + ')');
-    botaoAdicionarPreco.setAttribute('data-bs-dismiss','#modalPreco');
-
-    
-    modalFooter.appendChild(botaoAdicionarPreco);
-    modalFooter.appendChild(botaoFechar);
-    formGroup.appendChild(inputPreco);
-    formModal.appendChild(formGroup)
-    modalBody.appendChild(formModal)
-    modalHeader.appendChild(tituloModal);
-    modalContent.appendChild(modalHeader);
-    modalContent.appendChild(modalBody);
-    modalContent.appendChild(modalFooter);
-    modalPreco.appendChild(modalContent);
-    
-    return modalPreco;
+function atualizaValorItem(id, valor){
+    const item = minhaLista.find(x => x.id == id);
+    item.valor = valor;
+    atualizaLocalStorage();
+    iniciaPagina();
 }

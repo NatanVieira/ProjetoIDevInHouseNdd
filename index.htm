@@ -32,20 +32,18 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Detalhes</h5>
-                            <button type="button" id="botaoModalPreco" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times</span>
-                            </button>
+                            <h5 class="modal-title" id="tituloModalPreco">Preço do item</h5>
                         </div>
                         <div class="modal-body">
-                            <div style="display: block;">
-                                <p>Preço: R$ 1600,00</p>
-                                <p>Modalidade: Viagem de avião</p>
-                                <p>Saída: Curitiba-PR</p>
-                                <p>Final: Rio de Janeiro</p>
-                                <p>Escala: São Paulo</p>
-                                <p>Parcelamento: 12X s/ juros no crédito</p>
-                            </div>
+                            <form>
+                                <form-group>
+                                    <input type="number" class="form-control" id="inputValorPreco" placeholder="Digite o preço do item aqui...">
+                                </form-group>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="botaoAtualizaValor" class="btn btn-outline-dark close" data-bs-dismiss="modal">Atualizar Preço</button>
+                            <button type="button" class="btn btn-outline-danger close" data-bs-dismiss="modal">Fechar</button>
                         </div>
                     </div>
                 </div>
