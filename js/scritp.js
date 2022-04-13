@@ -98,9 +98,10 @@ function constroiSelecaoItem(id, valor) {
     const checkItemSelecao = document.createElement('input');
     checkItemSelecao.type = 'checkbox';
     checkItemSelecao.checked = valor > 0 ? true : false ;
-    checkItemSelecao.setAttribute('data-toggle','modal');
-    checkItemSelecao.setAttribute('data-target','#modalPreco');
-    checkItemSelecao.setAttribute("onclick","definePrecoItem(" + String(id) + ")");
+    checkItemSelecao.id = 'cb-' + String(id);
+    checkItemSelecao.setAttribute('data-bs-toggle','modal');
+    checkItemSelecao.setAttribute('data-bs-target','#modalPreco');
+    checkItemSelecao.setAttribute("onclick","definePrecoItem(" + String(id) + ", this.checked, this.id)")
     tdItemSelecao.appendChild(checkItemSelecao);
     tdItemSelecao.id = 'tg-' + String(id);
     return tdItemSelecao;
@@ -165,19 +166,35 @@ function incrementaIDGeral (){
     id_geral++;
 }
 
-function definePrecoItem(id){
-    const divPrecoProduto = document.getElementById(ID_PRECO);
-    divPrecoProduto.innerHTML = '';
-    const modalPreco = criaModalPreco(id);
-    divPrecoProduto.appendChild(modalPreco);
-    console.log('Veio até aqui');
+function definePrecoItem(id, itemSelecionado, idCheckBox){
+    const checkbox = document.getElementById(idCheckBox);
+    if (itemSelecionado){
+        // const modalPreco = criaModalPreco(id);
+        // divPrecoProduto.appendChild(modalPreco);
+        const botaoModalPreco = document.getElementById('botaoModalPreco');
+        botaoModalPreco.setAttribute('onclick','chamaAlert()');
+        checkbox.setAttribute('data-bs-toggle','');
+        checkbox.setAttribute('data-bs-target','');
+    }
+    else{
+        checkbox.setAttribute('data-bs-toggle','modal');
+        checkbox.setAttribute('data-bs-target','#modalPreco');
+        // const produto = minhaLista.find(x => x.id == id);
+        // if (produto)
+        //     produto.valor = 0;
+    }
 }
 
+function chamaAlert() {
+    alert("TESTE MUDANÇA MODAL");
+}
 function criaModalPreco (id) {
     const modalPreco = document.createElement('div');
     modalPreco.classList.add('modal');
-    modalPreco.classList.add('modalPreco');
-    criaModalPreco.id = 'modalPreco';
+    modalPreco.classList.add('modal-visible');
+    modalPreco.id = 'modalPreco';
+    modalPreco.tabIndex = '-1'
+    modalPreco.role = 'dialog'
 
     const modalContent = document.createElement('div');
     modalContent.classList.add('modal-content');
@@ -202,9 +219,9 @@ function criaModalPreco (id) {
     const botaoAdicionarPreco = document.createElement('button');
     botaoAdicionarPreco.classList.add('btn')
     botaoAdicionarPreco.classList.add('btn-dark');
-    botaoFechar.setAttribute('data-dismiss','modalPreco');
+    botaoFechar.setAttribute('data-bs-dismiss','#modalPreco');
     botaoAdicionarPreco.setAttribute('onclick','adicionaPreco(' + inputPreco.value + ',' + id + ')');
-    botaoAdicionarPreco.setAttribute('data-dismiss','modalPreco');
+    botaoAdicionarPreco.setAttribute('data-bs-dismiss','#modalPreco');
 
     
     modalFooter.appendChild(botaoAdicionarPreco);
