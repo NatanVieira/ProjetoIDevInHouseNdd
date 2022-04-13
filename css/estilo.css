@@ -9,14 +9,11 @@
     top:0;
     left: 0;
 }
+
 .row {
     margin: 15px;
 }
 
-.lista {
-    margin-top: 50px;
-    margin-bottom: 60px;
-}
 .total  {
     display: inline;
     width: 100%;
@@ -25,9 +22,8 @@
     font-size: 45px;
 }
 
-tbody {
- border: 2px solid #212529;
- border-radius: 25px;
+.sacolas {
+    flex-wrap: wrap;
 }
 
 .footer {
@@ -42,7 +38,7 @@ tbody {
     width: 100%;
 }
 
-.listaVazia {
+.aviso{
     font-size: 60px;
     color: #212529;
 }

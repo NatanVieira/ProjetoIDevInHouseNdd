@@ -6,6 +6,8 @@ const ID_PRECO        = 'divPreco';
 const ID_INPUTPRECO   = 'inputValorPreco';
 const ID_BOTAOPRECO   = 'botaoAtualizaValor';
 const ID_TITULOPRECO  = 'tituloModalPreco';
+const ID_DIVIMAGENS   = 'divImagens';
+const SRC_SACOLAS     = '../img/sacola.png';
 
 let id_geral = 0;
 let minhaLista = [];
@@ -39,7 +41,40 @@ function iniciaPagina() {
         minhaLista = [];
         constroiSpanListaVazia();
     }
+    constroiDivImagens();
     alteraValorTotal(valorTotal);
+}
+
+function constroiDivImagens() {
+    const divImagens = document.getElementById(ID_DIVIMAGENS);
+    divImagens.innerHTML = '';
+    let totalItens = 0;
+    minhaLista.forEach((item) => {
+        totalItens += Number(item.valor) > 0 ? 1 : 0;
+        console.log(item.valor);
+    })
+    console.log(totalItens);
+    if(totalItens > 0){
+    const spanQuantidade = document.createElement('span');
+        divImagens.appendChild(spanQuantidade);
+        spanQuantidade.className = 'aviso';
+        spanQuantidade.innerText = 'Total de itens: ' + String(totalItens.toFixed(2));
+        const breakLine = document.createElement('br');
+        divImagens.appendChild(breakLine);
+        criaSacolas(divImagens,totalItens);
+    }
+}
+
+function criaSacolas(divImagens,totalItens) {
+    let i = 1;
+    while(i <= totalItens){
+        const imagemSacola = document.createElement('img');
+        imagemSacola.src = SRC_SACOLAS;
+        imagemSacola.classList.add('img-thumbnail')
+        imagemSacola.style.width = '15em';
+        divImagens.appendChild(imagemSacola);
+        i++;
+    }
 }
 
 function alteraValorTotal(valor) {
@@ -52,7 +87,7 @@ function constroiSpanListaVazia() {
     divResultado.innerHTML = '';
     const spanListaVazia = document.createElement("span");
     spanListaVazia.innerText = 'Não existe nenhum item adicionado na lista.';
-    spanListaVazia.className = 'listaVazia';
+    spanListaVazia.className = 'aviso';
     divResultado.appendChild(spanListaVazia);
 }
 
@@ -147,15 +182,6 @@ function atualizaAtributosCheckBox(idCheckBox, itemSelecionado) {
     checkbox.setAttribute('data-bs-target', itemSelecionado ? '' : '#modalPreco');
 }
 
-//funcoes para itens da lista
-function removeItemLista(id) {
-    let posicaoObjeto;
-    posicaoObjeto = minhaLista.findIndex(x => x.id == id);
-    minhaLista.splice(posicaoObjeto,1);
-    atualizaLocalStorage();
-    iniciaPagina();
-}
-
 function abreModalPrecoItem(id, itemSelecionado, idCheckBox){
     const botaoAtualizaValor = document.getElementById(ID_BOTAOPRECO);
     const itemLista = minhaLista.find(x => x.id == id);
@@ -170,6 +196,14 @@ function abreModalPrecoItem(id, itemSelecionado, idCheckBox){
         botaoAtualizaValor.setAttribute('onclick','adicionaValorItem(' + String(id) +')');
     else
         retiraValorItem(id);
+}
+//funcoes para itens da lista
+function removeItemLista(id) {
+    let posicaoObjeto;
+    posicaoObjeto = minhaLista.findIndex(x => x.id == id);
+    minhaLista.splice(posicaoObjeto,1);
+    atualizaLocalStorage();
+    iniciaPagina();
 }
 
 function adicionaItemLista() {

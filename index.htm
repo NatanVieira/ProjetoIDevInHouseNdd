@@ -10,21 +10,23 @@
         <title>Minha Lista de Compras =)</title>
     </head>
     <body onload="iniciaPagina()" id="corpo">
-        <head>
+        <header>
             <div class="topo">
                 <nav class="navbar navbar-dark bg-dark" style="width: 100%; height: 100px;">
                     <a href="#" class="navbar-brand">Início</a>
                 </nav>
-                <div class="row">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Digite um novo produto aqui" aria-label="Novo produto" id="produto">
-                        <button class="btn btn-outline-dark" type="button" id="button-addon2" onclick="adicionarProduto()">Adicionar Produto</button>
-                    </div>
-                </div>
             </div>
-        </head>
+        </header>
+        <div class="row">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Digite um novo produto aqui" aria-label="Novo produto" id="produto">
+                <button class="btn btn-outline-dark" type="button" id="button-addon2" onclick="adicionaItemLista()">Adicionar Produto</button>
+            </div>
+        </div>
         <div class="row" >
             <div class="col col-6" id="divResultado">
+            </div>
+            <div class="col col-6 sacolas" id="divImagens">
             </div>
         </div>
         <div id="divPreco">
