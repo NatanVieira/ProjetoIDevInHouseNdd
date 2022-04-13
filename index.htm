@@ -16,13 +16,34 @@
             </nav>
             <div class="row">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Digite um novo produto aqui" aria-label="Novo produto">
+                    <input type="text" class="form-control" placeholder="Digite um novo produto aqui" aria-label="Novo produto" id="produto">
                     <button class="btn btn-outline-dark" type="button" id="button-addon2" onclick="adicionarProduto()">Adicionar Produto</button>
                 </div>
             </div>
         </div>
-        <div class="row lista" id="divResultado">
-            <div class="col col-6">
+        <div class="row" >
+            <div class="col col-6" id="divResultado">
+            </div>
+            <div class="col col-6" id="divPreco">   
+                <div class="modal" id="modalPreco" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="tituloPreco"></h5>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="valorPreco" class="col-form-label">Preço:</label>
+                                    <input type="text" class="form-control" id="valorPreco">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
             </div>
         </div>
         <footer class="footer">
