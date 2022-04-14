@@ -7,6 +7,9 @@
 body {
     height: 100%;
 }
+.central {
+    margin-bottom: 75px;
+}
 .topo {
     height: 100%;
     position: sticky;
@@ -48,7 +51,6 @@ body {
     background-color: #212529;
     height: 50px;
     width: 100%;
-    margin-top: 15px;
 }
 
 .aviso{
