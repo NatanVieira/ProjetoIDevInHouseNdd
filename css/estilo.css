@@ -22,8 +22,8 @@ body {
     margin: 15px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
 }
 
 .total  {
@@ -48,6 +48,7 @@ body {
     background-color: #212529;
     height: 50px;
     width: 100%;
+    margin-top: 15px;
 }
 
 .aviso{
