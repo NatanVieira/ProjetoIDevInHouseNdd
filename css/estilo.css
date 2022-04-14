@@ -12,6 +12,10 @@
 
 .row {
     margin: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .total  {
@@ -41,4 +45,8 @@
 .aviso{
     font-size: 60px;
     color: #212529;
+}
+
+.listaItens {
+    display: inline;
 }

@@ -51,9 +51,7 @@ function constroiDivImagens() {
     let totalItens = 0;
     minhaLista.forEach((item) => {
         totalItens += Number(item.valor) > 0 ? 1 : 0;
-        console.log(item.valor);
     })
-    console.log(totalItens);
     if(totalItens > 0){
     const spanQuantidade = document.createElement('span');
         divImagens.appendChild(spanQuantidade);
@@ -141,6 +139,8 @@ function constroiLinhaCorpo(corpoTabela,item) {
     linhaCorpo.appendChild(itemListaDescricao);
     linhaCorpo.appendChild(itemListaValor);
     linhaCorpo.appendChild(eliminacaoItemLista);
+    if (item.valor > 0)
+        linhaCorpo.style.backgroundColor = '#395697';
     corpoTabela.appendChild(linhaCorpo);
 }
 
@@ -197,6 +197,7 @@ function abreModalPrecoItem(id, itemSelecionado, idCheckBox){
     else
         retiraValorItem(id);
 }
+
 //funcoes para itens da lista
 function removeItemLista(id) {
     let posicaoObjeto;
@@ -208,13 +209,12 @@ function removeItemLista(id) {
 
 function adicionaItemLista() {
     const produto = document.getElementById(ID_PRODUTO);
-    const textoProduto = produto.value;
-    if(textoProduto != '' && textoProduto != null){
+    const textoProduto = produto.value.trim();
+    if(textoProduto != '' && textoProduto != null)
         criaNovoItemLista(textoProduto);
-    }
-    else{
+    else
         alert('Para adicionar um produto deve-se adicionar uma descrição no campo ao lado...');
-    }
+    
     produto.value = '';
     iniciaPagina();
 }
@@ -233,7 +233,10 @@ function criaNovoItemLista(textoProduto) {
 function adicionaValorItem(id){
     const inputValorPreco = document.getElementById(ID_INPUTPRECO);
     const valor = Number(inputValorPreco.value);
+    
     atualizaValorItem(id, valor);
+    if(valor == 0)
+        alert("Para atualizar o valor deve-se digitar um valor válido! (maior que zero e apenas númerico)");
 }
 
 function retiraValorItem(id) {
