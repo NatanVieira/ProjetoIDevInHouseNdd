@@ -139,8 +139,10 @@ function constroiLinhaCorpo(corpoTabela,item) {
     linhaCorpo.appendChild(itemListaDescricao);
     linhaCorpo.appendChild(itemListaValor);
     linhaCorpo.appendChild(eliminacaoItemLista);
-    if (item.valor > 0)
-        linhaCorpo.style.backgroundColor = '#395697';
+    if (Number(item.valor) > 0){
+        console.log("teste");
+        linhaCorpo.className = 'destaque';
+    }
     corpoTabela.appendChild(linhaCorpo);
 }
 

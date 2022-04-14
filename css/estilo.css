@@ -4,10 +4,18 @@
     box-sizing: border-box;
 }
 
+body {
+    height: 100%;
+}
 .topo {
+    height: 100%;
     position: sticky;
     top:0;
     left: 0;
+    display: flex;
+    background-color: #212529;
+    justify-content: center;
+    align-items: center;
 }
 
 .row {
@@ -47,6 +55,8 @@
     color: #212529;
 }
 
-.listaItens {
-    display: inline;
+.destaque {
+    color: yellow;
+    font-weight: bolder;
+    font-size: 1.5em;
 }
