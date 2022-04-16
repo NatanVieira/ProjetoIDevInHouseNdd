@@ -10,15 +10,15 @@
         <title>Minha Lista de Compras =)</title>
     </head>
     <body onload="iniciaPagina()" id="corpo">
-        <header>
-            <div class="topo">
-                <a href="#"><img src="./img/logobr1.png" alt="logo"></a>
-            </div>
-        </header>
-        <div class="row">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Digite um novo produto aqui" aria-label="Novo produto" id="produto">
-                <button class="btn btn-outline-dark" type="button" id="button-addon2" onclick="adicionaItemLista()">Adicionar Produto</button>
+        <div class="topo">
+            <header class="cabecalho">      
+                    <a href="#"><img src="./img/logobr.png" alt="logo"></a>
+            </header>
+            <div class="row">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Adicione um produto aqui" aria-label="Novo produto" id="produto">
+                    <button class="btn btn-outline-primary" type="button" id="botaoAdicionaProduto" onclick="adicionaItemLista()">Adicionar Produto</button>
+                </div>
             </div>
         </div>
         <div class="container central">

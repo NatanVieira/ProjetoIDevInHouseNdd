@@ -140,8 +140,7 @@ function constroiLinhaCorpo(corpoTabela,item) {
     linhaCorpo.appendChild(itemListaValor);
     linhaCorpo.appendChild(eliminacaoItemLista);
     if (Number(item.valor) > 0){
-        console.log("teste");
-        linhaCorpo.className = 'destaque';
+        linhaCorpo.classList.add('destaque');
     }
     corpoTabela.appendChild(linhaCorpo);
 }
@@ -191,7 +190,7 @@ function abreModalPrecoItem(id, itemSelecionado, idCheckBox){
     inputValorPreco.value = '';
     if(itemLista){
         const tituloModal = document.getElementById(ID_TITULOPRECO);
-        tituloModal.innerText = itemLista.descricao;
+        tituloModal.innerText = `Preço do item: ${itemLista.descricao}`;
     }
     atualizaAtributosCheckBox(idCheckBox,itemSelecionado);
     if (itemSelecionado)
@@ -215,7 +214,7 @@ function adicionaItemLista() {
     if(textoProduto != '' && textoProduto != null)
         criaNovoItemLista(textoProduto);
     else
-        alert('Para adicionar um produto deve-se adicionar uma descrição no campo ao lado...');
+        alert('Para adicionar um produto deve-se colocar uma descrição no campo ao lado...');
     
     produto.value = '';
     iniciaPagina();

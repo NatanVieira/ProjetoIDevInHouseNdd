@@ -7,28 +7,29 @@
 body {
     height: 100%;
 }
-.central {
-    margin-bottom: 75px;
-}
-.topo {
-    height: 100%;
-    position: sticky;
-    top:0;
-    left: 0;
+
+.cabecalho {
     display: flex;
     background-color: #212529;
     justify-content: center;
     align-items: center;
 }
 
+.topo {
+    position: sticky;
+    top:0;
+    left: 0;
+}
+
 .row {
     margin: 15px;
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: center;
-    align-items: center; */
 }
 
+.central {
+    margin-bottom: 75px;
+}
 .total  {
     display: inline;
     width: 100%;
@@ -59,7 +60,7 @@ body {
 }
 
 .destaque {
-    color: yellow;
-    font-weight: bolder;
+    text-decoration: line-through;
+    color: #0D6EFD;
     font-size: 1.5em;
 }
