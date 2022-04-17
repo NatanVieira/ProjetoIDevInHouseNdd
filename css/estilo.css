@@ -1,7 +1,12 @@
+@font-face {
+    font-family: 'Rothek-bold';
+    src: url('../fonte/Rothek-bold.otf');
+}
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Rothek-bold;
 }
 
 body {
