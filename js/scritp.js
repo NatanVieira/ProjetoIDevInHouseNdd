@@ -7,7 +7,7 @@ const ID_INPUTPRECO   = 'inputValorPreco';
 const ID_BOTAOPRECO   = 'botaoAtualizaValor';
 const ID_TITULOPRECO  = 'tituloModalPreco';
 const ID_DIVIMAGENS   = 'divImagens';
-const SRC_SACOLAS     = '../img/sacola.png';
+const SRC_SACOLAS     = './img/sacola.png';
 
 let id_geral = 0;
 let minhaLista = [];
