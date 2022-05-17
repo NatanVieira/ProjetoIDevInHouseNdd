@@ -1,5 +1,5 @@
 # ProjetoIDevInHouseNdd
-Projeto I - Dev In House NDD - HTML, CSS, JS - [Flex Grid](https://natanvieira.github.io/ProjetoIDevInHouseNdd/)
+Projeto I - Dev In House NDD - HTML, CSS, JS - [Acesse aqui](https://natanvieira.github.io/ProjetoIDevInHouseNdd/)
 
 Bem-vindo ao repositório do meu primeiro projeto da Dev In House! 😃
 
